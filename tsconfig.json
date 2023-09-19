@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "target": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "baseUrl": "./src",
+    // "paths": {},
+    /* Emit */
+    "declaration": true,
+    "outDir": "./build",
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Type Checking */
+    "strict": true,
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

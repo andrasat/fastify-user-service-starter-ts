@@ -1,0 +1,33 @@
+{
+  "name": "pafin-user-service",
+  "version": "0.0.0-alpha",
+  "description": "technical assignment for pafin",
+  "main": "index.js",
+  "repository": "git@github.com:andrasat/pafin-user-service.git",
+  "author": "andrasat <andra.satria1@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "dev:docker": "docker-compose up",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "fastify": "^4.23.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "eslint": "^8.49.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  }
+}
