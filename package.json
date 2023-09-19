@@ -11,21 +11,31 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "dev": "tsx watch index.ts",
-    "dev:docker": "docker-compose up",
+    "start": "tsx watch src/index.ts",
+    "dev": "docker-compose up",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint",
+    "generate-drizzle": "drizzle-kit generate:pg",
+    "migrate": "./scripts/migrate.js",
+    "seed": "./scripts/seed.js",
     "prepare": "husky install"
   },
   "dependencies": {
-    "fastify": "^4.23.2"
+    "@fastify/jwt": "^7.2.1",
+    "drizzle-orm": "^0.28.6",
+    "fastify": "^4.23.2",
+    "postgres": "^3.3.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.6.2",
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
+    "drizzle-kit": "^0.19.13",
     "eslint": "^8.49.0",
     "husky": "^8.0.3",
+    "json-schema-to-ts": "^2.9.2",
     "lint-staged": "^14.0.1",
     "tsx": "^3.12.10",
     "typescript": "^5.2.2"
