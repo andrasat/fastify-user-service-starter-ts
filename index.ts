@@ -1,6 +1,6 @@
 import buildApp from "./src/index";
 
-const app = buildApp({
+const app = await buildApp({
   logger: {
     level: "info",
     transport: {

@@ -25,7 +25,7 @@ export default fp(async (fastify) => {
 
       request.user = user;
     } catch (err: any) {
-      return reply.status(401).send({ error: "Unauthorized", message: err.message || "Unauthorized" });
+      return reply.status(401).send({ message: err.message || "Unauthorized" });
     }
   });
 });

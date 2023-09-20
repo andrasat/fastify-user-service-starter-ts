@@ -1,24 +1,46 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { v5 } from "uuid";
 import crypto from "node:crypto";
 
 import { db } from "./connection";
-import { users } from "./schema";
+import { users, User } from "./schema";
+import type { Pagination } from "../types";
 
 export async function getUserById(id: string) {
-  const data = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  const data = await db.select({ id: users.id, email: users.email, name: users.name }).from(users).where(eq(users.id, id)).limit(1);
   return data[0];
 }
 
-export async function getUserByEmail(email: string) {
-  const data = await db.select().from(users).where(eq(users.email, email)).limit(1);
+export async function getUserWithPasswordByEmail(email: string) {
+  const data = await db.select({ id: users.id, email: users.email, name: users.name, password: users.password }).from(users).where(eq(users.email, email)).limit(1);
   return data[0];
+}
+
+export async function getUsersPaginated(page: number = 1, limit: number = 1) {
+  const [data, countResult] = await Promise.all([
+    db.select({ id: users.id, email: users.email, name: users.name }).from(users).limit(limit).offset((page - 1) * limit),
+    db.select({ count: sql<number>`count(*)` }).from(users),
+  ]);
+
+  const totalPages = Math.ceil(countResult[0].count / limit);
+
+  const pagination: Pagination<User> = {
+    pagination: {
+      totalData: countResult[0].count,
+      currentPage: page,
+      totalPages: totalPages,
+      nextPage: page < totalPages ? page + 1 : null,
+    },
+    data,
+  };
+
+  return pagination;
 }
 
 export async function insertUser(email: string, password: string, name?: string) {
   const id = v5(email, process.env.UUID_NAMESPACE!);
   const hashedPass = crypto.scryptSync(password, process.env.SALT!, 64).toString("hex");
-  const data = await db.insert(users).values({ id, email, password: hashedPass, name }).returning();
+  const data = await db.insert(users).values({ id, email, password: hashedPass, name }).returning({ id: users.id, email: users.email, name: users.name });
   return data[0];
 }
 
@@ -34,11 +56,11 @@ export async function updateUser(id: string, email?: string, password?: string, 
     dataToUpdate["password"] = hashedPass;
   }
 
-  const data = await db.update(users).set(dataToUpdate).where(eq(users.id, id)).returning();
+  const data = await db.update(users).set(dataToUpdate).where(eq(users.id, id)).returning({ id: users.id, email: users.email, name: users.name });
   return data[0];
 }
 
 export async function deleteUser(id: string) {
-  const data = await db.delete(users).where(eq(users.id, id)).returning();
+  const data = await db.delete(users).where(eq(users.id, id)).returning({ id: users.id, email: users.email, name: users.name });
   return data[0];
 }

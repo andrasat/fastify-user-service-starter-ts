@@ -23,11 +23,14 @@
   },
   "dependencies": {
     "@fastify/jwt": "^7.2.1",
+    "@fastify/swagger": "^8.10.1",
+    "@fastify/swagger-ui": "^1.9.3",
     "drizzle-orm": "^0.28.6",
     "fastify": "^4.23.2",
     "fastify-plugin": "^4.5.1",
     "postgres": "^3.3.5",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
@@ -35,6 +38,7 @@
     "@types/jest": "^29.5.5",
     "@types/node": "^20.6.2",
     "@types/uuid": "^9.0.4",
+    "@types/validator": "^13.11.1",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
     "drizzle-kit": "^0.19.13",
