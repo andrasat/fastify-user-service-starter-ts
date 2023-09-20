@@ -19,9 +19,13 @@ export default fp(async (fastify) => {
 
   fastify.decorate("authenticate", async (request, reply) => {
     try {
-      await request.jwtVerify();
-    } catch (err) {
-      return reply.send(err);
+      const tokenValue = request.headers.authorization?.replace("Bearer ", "");
+      const user: object = fastify.jwt.verify(tokenValue || "");
+      if (!user) throw new Error("Unauthorized");
+
+      request.user = user;
+    } catch (err: any) {
+      return reply.status(401).send({ error: "Unauthorized", message: err.message || "Unauthorized" });
     }
   });
 });

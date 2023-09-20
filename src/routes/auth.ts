@@ -24,21 +24,25 @@ async function authRoutes(app: FastifyInstance) {
   app.post<{ Body: FromSchema<typeof loginBodySchema> }>("/login", {
     schema: { body: loginBodySchema },
   }, async (request, reply) => {
-    const { email, password } = request.body;
+    try {
+      const { email, password } = request.body;
 
-    const user = await getUserByEmail(email);
+      const user = await getUserByEmail(email);
 
-    if (!user) {
-      return reply.status(401).send({ message: "Invalid email or password" });
+      if (!user) {
+        return reply.status(401).send({ message: "Invalid email or password" });
+      }
+
+      const hashedPass = crypto.scryptSync(password, process.env.SALT!, 64).toString("hex");
+      if (hashedPass !== user.password) {
+        return reply.status(401).send({ message: "Invalid email or password" });
+      }
+
+      const token = app.jwt.sign({ id: user.id }, { expiresIn: "1h" });
+      return reply.send({ data: { token } });
+    } catch (err) {
+      return reply.status(500).send({ message: err });
     }
-
-    const hashedPass = crypto.scryptSync(password, process.env.SALT!, 64).toString("hex");
-    if (hashedPass !== user.password) {
-      return reply.status(401).send({ message: "Invalid email or password" });
-    }
-
-    const token = app.jwt.sign({ id: user.id });
-    return reply.send({ data: { token } });
   });
 }
 

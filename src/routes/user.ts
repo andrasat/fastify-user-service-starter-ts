@@ -1,6 +1,5 @@
+import type { FastifyInstance } from "fastify";
 import type { FromSchema } from "json-schema-to-ts";
-import fp from "fastify-plugin";
-
 import { getUserById, insertUser, updateUser, deleteUser } from "../db";
 
 /**
@@ -36,14 +35,19 @@ const UpdateBodySchema = {
 /**
  * --- Routes ---
  */
-export default fp(async function (app) {
+export async function userRoutes(app: FastifyInstance) {
   // Get user by ID
   app.get<{ Params: FromSchema<typeof ParamSchema> }>("/:id", {
     schema: { params: ParamSchema },
     onRequest: [app.authenticate],
   }, async (request, reply) => {
-    const user = await getUserById(request.params.id);
-    return reply.send({ data: user });
+    try {
+      const user = await getUserById(request.params.id);
+      return reply.send({ data: user });
+    } catch (err) {
+      console.log("ERR HERE: ", err);
+      return reply.status(500).send({ message: err });
+    }
   });
 
   // Create user
@@ -51,9 +55,13 @@ export default fp(async function (app) {
     schema: { body: BodySchema },
     onRequest: [app.authenticate],
   }, async (request, reply) => {
-    const { email, password, name } = request.body;
-    const user = await insertUser(email, password, name);
-    return reply.send({ data: user });
+    try {
+      const { email, password, name } = request.body;
+      const user = await insertUser(email, password, name);
+      return reply.send({ data: user });
+    } catch (err) {
+      return reply.status(500).send({ message: err });
+    }
   });
 
   // Update user
@@ -65,8 +73,13 @@ export default fp(async function (app) {
     onRequest: [app.authenticate],
   }, async (request, reply) => {
     const { email, password, name } = request.body;
-    const user = await updateUser(request.params.id, email, password, name);
-    return reply.send({ data: user });
+    try {
+      const user = await updateUser(request.params.id, email, password, name);
+      if (!user) return reply.status(404).send({ message: "User not found" });
+      return reply.send({ data: user });
+    } catch (err) {
+      return reply.status(500).send({ message: err });
+    }
   });
 
   // Delete user
@@ -74,8 +87,14 @@ export default fp(async function (app) {
     schema: { params: ParamSchema },
     onRequest: [app.authenticate],
   }, async (request, reply) => {
-    const user = await deleteUser(request.params.id);
-    if (!user) return reply.status(404).send({ message: "User not found" });
-    return reply.send({ data: { id: user.id, deleted: "OK" } });
+    try {
+      const user = await deleteUser(request.params.id);
+      if (!user) return reply.status(404).send({ message: "User not found" });
+      return reply.send({ data: { id: user.id, deleted: "OK" } });
+    } catch (err) {
+      return reply.status(500).send({ message: err });
+    }
   });
-});
+}
+
+export default userRoutes;
