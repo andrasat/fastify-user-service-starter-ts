@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { FromSchema } from "json-schema-to-ts";
 import validator from "validator";
-import { getUsersPaginated, getUserById, insertUser, updateUser, deleteUser } from "../db";
+import { getUsersPaginated, getUserById, insertUser, updateUser, deleteUser } from "../db/repository";
 
 /**
  * --- Schemas ---
@@ -174,7 +174,6 @@ export async function userRoutes(app: FastifyInstance) {
 
       return reply.send({ user });
     } catch (err) {
-      console.log("ERR HERE: ", err);
       return reply.status(500).send({ message: err });
     }
   });

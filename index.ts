@@ -1,6 +1,6 @@
 import buildApp from "./src/index";
 
-const app = await buildApp({
+const app = buildApp(false, {
   logger: {
     level: "info",
     transport: {
@@ -8,6 +8,9 @@ const app = await buildApp({
     }
   }
 });
+
+await app.ready();
+app.swagger();
 
 app.listen({ host: "0.0.0.0", port: 8081 }, (err) => {
   if (err) {

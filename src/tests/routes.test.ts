@@ -1,0 +1,39 @@
+import { build } from "./helper";
+
+describe("Routes", () => {
+  const app = build();
+
+  test("GET /", async () => {
+    const response = await app.inject({
+      method: "GET",
+      url: "/",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.payload).toEqual("OK");
+  });
+
+  test("GET /not-found", async () => {
+    const response = await app.inject({
+      method: "GET",
+      url: "/not-found",
+    });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.payload).toEqual("Not Found");
+  });
+
+  test("Route /users is protected", async () => {
+    const response = await app.inject({
+      method: "GET",
+      url: "/users/not-a-valid-id",
+      headers: {
+        Authorization: "",
+      }
+    });
+
+    const payload = response.json();
+    expect(response.statusCode).toBe(401);
+    expect(payload).toHaveProperty("message", "missing token");
+  });
+});

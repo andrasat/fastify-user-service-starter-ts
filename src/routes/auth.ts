@@ -3,7 +3,7 @@ import type { FromSchema } from "json-schema-to-ts";
 import validator from "validator";
 import crypto from "node:crypto";
 
-import { getUserWithPasswordByEmail } from "../db";
+import { getUserWithPasswordByEmail } from "../db/repository";
 
 /**
  * --- Schemas ---

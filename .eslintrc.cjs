@@ -13,6 +13,16 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error"],
     // Disable rules
     "no-unused-vars": "off", // Need to turn off this in favor of typescript-eslint
-    "@typescript-eslint/explicit-function-return-type": "off"
-  }
+    "@typescript-eslint/explicit-function-return-type": "off",
+  },
+  overrides: [
+    Object.assign(
+      {
+        files: ["**/*.test.ts", "**/tests/**/*.ts"],
+        env: { jest: true },
+        plugins: ["jest"],
+      },
+      require("eslint-plugin-jest").configs.recommended,
+    ),
+  ],
 };
