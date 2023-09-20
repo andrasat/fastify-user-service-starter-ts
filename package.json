@@ -17,7 +17,7 @@
     "lint": "eslint",
     "generate-drizzle": "drizzle-kit generate:pg",
     "migrate": "./scripts/migrate.js",
-    "seed": "./scripts/seed.js",
+    "seed": "./scripts/seed.ts",
     "test": "jest --coverage",
     "prepare": "husky install"
   },
@@ -25,10 +25,12 @@
     "@fastify/jwt": "^7.2.1",
     "drizzle-orm": "^0.28.6",
     "fastify": "^4.23.2",
+    "fastify-plugin": "^4.5.1",
     "postgres": "^3.3.5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.1.0",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.6.2",
