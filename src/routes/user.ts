@@ -1,5 +1,5 @@
-import type { FastifyInstance } from "fastify";
 import type { FromSchema } from "json-schema-to-ts";
+import fp from "fastify-plugin";
 
 import { getUserById, insertUser, updateUser, deleteUser } from "../db";
 
@@ -36,10 +36,11 @@ const UpdateBodySchema = {
 /**
  * --- Routes ---
  */
-async function userRoutes(app: FastifyInstance) {
+export default fp(async function (app) {
   // Get user by ID
   app.get<{ Params: FromSchema<typeof ParamSchema> }>("/:id", {
     schema: { params: ParamSchema },
+    onRequest: [app.authenticate],
   }, async (request, reply) => {
     const user = await getUserById(request.params.id);
     return reply.send({ data: user });
@@ -48,6 +49,7 @@ async function userRoutes(app: FastifyInstance) {
   // Create user
   app.post<{ Body: FromSchema<typeof BodySchema> }>("/create", {
     schema: { body: BodySchema },
+    onRequest: [app.authenticate],
   }, async (request, reply) => {
     const { email, password, name } = request.body;
     const user = await insertUser(email, password, name);
@@ -60,6 +62,7 @@ async function userRoutes(app: FastifyInstance) {
     Params: FromSchema<typeof ParamSchema>
   }>("/:id", {
     schema: { body: UpdateBodySchema, params: ParamSchema },
+    onRequest: [app.authenticate],
   }, async (request, reply) => {
     const { email, password, name } = request.body;
     const user = await updateUser(request.params.id, email, password, name);
@@ -69,11 +72,10 @@ async function userRoutes(app: FastifyInstance) {
   // Delete user
   app.delete<{ Params: FromSchema<typeof ParamSchema> }>("/:id", {
     schema: { params: ParamSchema },
+    onRequest: [app.authenticate],
   }, async (request, reply) => {
     const user = await deleteUser(request.params.id);
     if (!user) return reply.status(404).send({ message: "User not found" });
     return reply.send({ data: { id: user.id, deleted: "OK" } });
   });
-}
-
-export default userRoutes;
+});
