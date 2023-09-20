@@ -43,17 +43,17 @@ A technical assignment for Pafin based from this file: [G Drive Link](https://dr
 
 - API Routes
 
-  | Method | Route             | Description                   | JWT Protected |
-  | ------ | ----------------- | ----------------------------- | ------------- |
-  | GET    | /                 | Health check                  | No            |
-  | GET    | /docs             | OpenAPI v3 Docs               | No            |
-  | POST   | /auth/login       | Login                         | No            |
-  | GET    | /users            | Get all users with pagination | Yes           |
-  | GET    | /users/:id        | Get user by id                | Yes           |
-  | POST   | /users/create     | Create a new user             | Yes           |
-  | PATCH  | /users/update/:id | Update a user by id           | Yes           |
-  | DELETE | /users/delete/:id | Delete a user by id           | Yes           |
-  | GET    | /\*               | Not Found                     | No            |
+  | Method | Route       | Description                   | JWT Protected |
+  | ------ | ----------- | ----------------------------- | ------------- |
+  | GET    | /           | Health check                  | No            |
+  | GET    | /docs       | OpenAPI v3 Docs               | No            |
+  | POST   | /auth/login | Login                         | No            |
+  | GET    | /users      | Get all users with pagination | Yes           |
+  | GET    | /users/:id  | Get user by id                | Yes           |
+  | POST   | /users/     | Create a new user             | Yes           |
+  | PATCH  | /users/:id  | Update a user by id           | Yes           |
+  | DELETE | /users/:id  | Delete a user by id           | Yes           |
+  | GET    | /\*         | Not Found                     | No            |
 
 - Authentication
 

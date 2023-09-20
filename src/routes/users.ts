@@ -179,7 +179,7 @@ export async function userRoutes(app: FastifyInstance) {
   });
 
   // Create user
-  app.post<{ Body: FromSchema<typeof BodySchema> }>("/create", {
+  app.post<{ Body: FromSchema<typeof BodySchema> }>("/", {
     schema: { body: BodySchema, response: UserDataResponseSchema, security: SecuritySchema },
     onRequest: [app.authenticate],
   }, async (request, reply) => {
@@ -207,6 +207,10 @@ export async function userRoutes(app: FastifyInstance) {
   }, async (request, reply) => {
     const { email, password, name } = request.body;
     try {
+      if (email && !validator.isEmail(email)) {
+        return reply.status(400).send({ message: "Invalid email" });
+      }
+
       const user = await updateUser(request.params.id, email, password, name);
 
       if (!user) return reply.status(404).send({ message: "User not found" });
