@@ -8,12 +8,7 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "Node",
-    "baseUrl": "./src",
-    "paths": {
-      "@db": [
-        "./db/index.ts"
-      ],
-    },
+    "baseUrl": "./",
     /* Emit */
     "declaration": true,
     "outDir": "./build",
@@ -27,6 +22,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "index.ts"
   ]
 }

@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { FromSchema } from "json-schema-to-ts";
-import { getUserById, insertUser, updateUser, deleteUser } from "@db";
+
+import { getUserById, insertUser, updateUser, deleteUser } from "../db";
 
 /**
  * --- Schemas ---

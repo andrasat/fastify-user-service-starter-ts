@@ -11,13 +11,14 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "tsx watch src/index.ts",
+    "start": "tsx watch index.ts",
     "dev": "docker-compose up",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint",
     "generate-drizzle": "drizzle-kit generate:pg",
     "migrate": "./scripts/migrate.js",
     "seed": "./scripts/seed.js",
+    "test": "jest --coverage",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -28,6 +29,8 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.5",
     "@types/node": "^20.6.2",
     "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
@@ -35,8 +38,11 @@
     "drizzle-kit": "^0.19.13",
     "eslint": "^8.49.0",
     "husky": "^8.0.3",
+    "jest": "^29.7.0",
     "json-schema-to-ts": "^2.9.2",
     "lint-staged": "^14.0.1",
+    "pino-pretty": "^10.2.0",
+    "ts-jest": "^29.1.1",
     "tsx": "^3.12.10",
     "typescript": "^5.2.2"
   }

@@ -1,7 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import type { FromSchema } from "json-schema-to-ts";
 import crypto from "node:crypto";
-import { getUserByEmail } from "@db";
+
+import { getUserByEmail } from "../db";
 
 /**
  * --- Schemas ---
