@@ -18,7 +18,7 @@ A technical assignment for Pafin based from this file: [G Drive Link](https://dr
   - Run `yarn install` to install dependencies
   - Run `yarn run dev` to start the development server
 
-  After the development server is started, you can access the API at `http://localhost:3000`
+  After the development server is started, you can access the API at `http://localhost:8081`
 
   Additional commands:
 
@@ -54,8 +54,6 @@ A technical assignment for Pafin based from this file: [G Drive Link](https://dr
   | PATCH  | /users/update/:id | Update a user by id           | Yes           |
   | DELETE | /users/delete/:id | Delete a user by id           | Yes           |
   | GET    | /\*               | Not Found                     | No            |
-
-  - Notes: \* is required
 
 - Authentication
 
