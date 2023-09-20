@@ -16,7 +16,7 @@ A technical assignment for Pafin based from this file: [G Drive Link](https://dr
 
   - Clone this repository
   - Run `yarn install` to install dependencies
-  - Run `yarn run dev` to start the development server
+  - Run `yarn dev` to start the development server
 
   After the development server is started, you can access the API at `http://localhost:8081`
 
@@ -30,12 +30,12 @@ A technical assignment for Pafin based from this file: [G Drive Link](https://dr
 
   - The migration is done using [drizzle](https://orm.drizzle.team/)
   - The migration files are located in `drizzle` folder
-  - The migration files are generated using `yarn run generate-drizzle`
-  - The migration files are generated based on the schema in `src/schema.ts`
+  - The migration files are generated using `yarn run generate-drizzle`, it is saved in git to track the changes
+  - The migration files are generated based on the schema in `src/db/schema.ts`
 
 - Seed Data
 
-  - The seed data is located in `src/seed.ts`
+  - The seed data is located in `scripts/seed.ts`
   - The seed data is generated using [faker.js](https://fakerjs.dev/)
   - There is 1 fixed user for testing purposes
     - Email: `tester@mail.com`
