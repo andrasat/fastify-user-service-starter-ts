@@ -92,6 +92,7 @@ const UserDataResponseSchema = {
           id: { type: "string" },
           email: { type: "string" },
           name: { type: "string" },
+          password: { type: "string" },
         },
       },
     },
@@ -190,9 +191,18 @@ export async function userRoutes(app: FastifyInstance) {
         return reply.status(400).send({ message: "Invalid email" });
       }
 
+      if (typeof password !== "string" || password.length === 0) {
+        return reply.status(400).send({ message: "Please input a password" });
+      }
+
       const user = await insertUser(email, password, name);
       return reply.send({ user });
     } catch (err) {
+      const error = err as Error;
+      if (error.message.includes("duplicate key value violates unique constraint")) {
+        return reply.status(400).send({ message: "Email already exists" });
+      }
+
       return reply.status(500).send({ message: err });
     }
   });
@@ -211,12 +221,21 @@ export async function userRoutes(app: FastifyInstance) {
         return reply.status(400).send({ message: "Invalid email" });
       }
 
+      if (password && (typeof password !== "string" || password.length === 0)) {
+        return reply.status(400).send({ message: "Please input a password" });
+      }
+
       const user = await updateUser(request.params.id, email, password, name);
 
       if (!user) return reply.status(404).send({ message: "User not found" });
 
       return reply.send({ user });
     } catch (err) {
+      const error = err as Error;
+      if (error.message.includes("duplicate key value violates unique constraint")) {
+        return reply.status(400).send({ message: "Email already exists" });
+      }
+
       return reply.status(500).send({ message: err });
     }
   });
