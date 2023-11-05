@@ -1,9 +1,9 @@
 {
-  "name": "pafin-user-service",
-  "version": "0.0.0-alpha",
-  "description": "technical assignment for pafin",
+  "name": "fastify-user-service-starter-ts",
+  "version": "0.1.0",
+  "description": "A typescript starter project to build your own user backend service",
   "main": "index.js",
-  "repository": "git@github.com:andrasat/pafin-user-service.git",
+  "repository": "git@github.com:andrasat/fastify-user-service-starter-ts.git",
   "author": "andrasat <andra.satria1@gmail.com>",
   "license": "MIT",
   "type": "module",
@@ -11,8 +11,8 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "tsx watch index.ts",
-    "dev": "docker-compose up",
+    "dev": "tsx watch index.ts",
+    "docker:dev": "docker-compose up",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint",
     "generate-drizzle": "drizzle-kit generate:pg",

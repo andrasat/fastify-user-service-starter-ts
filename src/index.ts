@@ -15,9 +15,9 @@ function buildApp(testMode: boolean = false, opts?: FastifyServerOptions,) {
     server.register(swagger, {
       openapi: {
         info: {
-          title: "Pafin User Service API",
-          description: "Pafin User Service API Documentation",
-          version: "0.0.0-alpha",
+          title: "Fastify User Service Starter",
+          description: "API Documentation",
+          version: "0.1.0",
         },
         servers: [{
           url: "http://localhost:8081",

@@ -1,22 +1,22 @@
-# pafin-user-service
+# fastify user service starter ts
 
-A technical assignment for Pafin based from this file: [G Drive Link](https://drive.google.com/file/d/1LmthPz-z6-mzKjFHpB0WjvpDoESLuXNJ/view)
+This is a starter project to create your own user backend service with JWT authentication.
 
 ## Getting Started
 
 - Pre-requisites:
 
-  - Docker
-  - Docker Compose
+  - Docker (Not required if you have your own database)
+  - Docker Compose (Not required if you have your own database)
   - NodeJS
   - NPM / Yarn
-  - Git
 
 - Steps:
 
   - Clone this repository
   - Run `yarn install` to install dependencies
   - Run `yarn dev` to start the development server
+  - Run `yarn docker:dev` to start the development server with docker
 
   After the development server is started, you can access the API at `http://localhost:8081`
 
