@@ -1,22 +1,22 @@
-version: '3'
+version: "3"
 services:
   user-service:
     image: node:18-alpine3.17
-    command: yarn start
+    command: yarn dev
     ports:
       - 8081:8081
     volumes:
       - ./:/source
     working_dir: /source
     environment:
-      - DB_URL=postgres://pafin_service:postgres@example-postgres-db:5432/user
+      - DB_URL=postgres://user_service:postgres@example-postgres-db:5432/user
       - UUID_NAMESPACE=0c3e2bf9-204c-454b-ae5f-a53da2d3034b
       - JWT_SECRET=secretkey
       - SALT=10
   example-postgres-db:
     image: postgres:16-alpine3.17
     environment:
-      POSTGRES_USER: pafin_service
+      POSTGRES_USER: user_service
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: user
     ports:

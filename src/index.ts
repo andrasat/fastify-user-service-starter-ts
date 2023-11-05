@@ -1,17 +1,18 @@
 import fastify, { FastifyServerOptions } from "fastify";
 import swagger from "@fastify/swagger";
 import swaggerUI from "@fastify/swagger-ui";
+import envPlugin from "./plugins/env";
 import jwtPlugin from "./plugins/jwt";
 
 import authRoutes from "./routes/auth";
 import usersRoutes from "./routes/users";
 
-function buildApp(testMode: boolean = false, opts?: FastifyServerOptions,) {
+async function buildApp(testMode: boolean = false, opts?: FastifyServerOptions,) {
   const server = fastify(opts);
 
-  server.register(jwtPlugin);
-
   if (!testMode) {
+    await server.register(envPlugin);
+
     server.register(swagger, {
       openapi: {
         info: {
@@ -42,6 +43,8 @@ function buildApp(testMode: boolean = false, opts?: FastifyServerOptions,) {
       }
     });
   }
+
+  server.register(jwtPlugin);
 
   server.register(authRoutes, { prefix: "/auth" });
   server.register(usersRoutes, { prefix: "/users" });

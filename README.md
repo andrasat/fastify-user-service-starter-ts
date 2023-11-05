@@ -11,6 +11,15 @@ This is a starter project to create your own user backend service with JWT authe
   - NodeJS
   - NPM / Yarn
 
+- ENVs
+
+  If you are running this app without using docker, you might need to set a few environment variables, env needed:
+
+  - `DB_URL` // postgres://user:password@host:port/database
+  - `UUID_NAMESPACE` // UUID namespace for generating UUID v5
+  - `JWT_SECRET` // JWT secret for generating JWT token
+  - `SALT` // Salt for hashing password
+
 - Steps:
 
   - Clone this repository

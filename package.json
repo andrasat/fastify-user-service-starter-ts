@@ -22,6 +22,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@fastify/env": "^4.3.0",
     "@fastify/jwt": "^7.2.1",
     "@fastify/swagger": "^8.10.1",
     "@fastify/swagger-ui": "^1.9.3",
