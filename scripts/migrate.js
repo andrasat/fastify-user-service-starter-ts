@@ -1,4 +1,4 @@
-#!/usr/bin/env -S DB_URL=postgres://pafin_service:postgres@localhost:5432/user node
+#!/usr/bin/env -S DB_URL=postgres://user_service:postgres@localhost:5432/user node
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
